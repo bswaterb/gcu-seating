@@ -1,0 +1,26 @@
+mybatis:
+  mapper-locations: mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: 
+    password: 
+    driver-class-name: 
+    url: 
+  redis:
+    database: 0
+    host: 
+    port: 
+    password: 
+    jedis:
+      pool:
+        max-active: 8
+logging:
+  file:
+    path: logs
+    name: mylogs.log
+server:
+  max-http-header-size: 102400
+  port: 11451

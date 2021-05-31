@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jsdx.mapper.StudentMapper">
+    <select id="checkClassroom" resultType="String">
+        select classroom_id from class_room_list where class_id=#{classId} and class_password=#{classPassword} and #{nowTime}&lt;end_time and #{nowTime}&gt;start_time
+    </select>
+
+    <select id="checkClassroomWithoutPassword" resultType="String">
+        select classroom_id from class_room_list where class_id=#{classId} and #{nowTime}&lt;end_time and #{nowTime}&gt;start_time
+    </select>
+
+    <select id="isClassroomCheckInNow" resultType="Integer">
+        select count(class_id) from class_room_check_in where class_id = #{classId}
+    </select>
+
+    <select id="searchClassById" parameterType="String" resultType="com.jsdx.entity.Classroom">
+        select teacher_open_id,class_id,class_name,classroom_id,start_time,end_time,class_password,classroom_size from class_room_list where class_id = #{classId}
+    </select>
+
+    <select id="searchJoinedClass" parameterType="String" resultType="map">
+        select classroom_id,stu_name,class_name,stu_id,x,y,join_time from seating_record where stu_id = #{stuId}
+    </select>
+
+    <select id="isClassroomExist" resultType="java.lang.Boolean">
+        select count(class_id) from class_room_list where class_id = #{classId}
+    </select>
+
+    <select id="isClassroomStarted" resultType="java.lang.Boolean">
+        select count(class_id) from class_room_list where class_id in (
+            select class_id from class_room_list where class_id = #{classId} and #{nowTime}&lt;end_time and #{nowTime}&gt;start_time
+            )
+    </select>
+
+
+
+</mapper>

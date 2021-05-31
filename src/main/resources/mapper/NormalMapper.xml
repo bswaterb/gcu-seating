@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jsdx.mapper.NormalMapper">
+
+    <select id="findClassroomIdByClassId" resultType="String">
+        select classroom_id from class_room_list where class_id = #{class_id}
+    </select>
+
+    <select id="checkTeacherId" resultType="Integer">
+        select count(teacher_wx_id) from teacher_account where teacher_wx_id = #{teacherId}
+    </select>
+
+    <select id="searchClassById" parameterType="String" resultType="com.jsdx.entity.Classroom">
+        select teacher_id,class_id,class_name,classroom_id,start_time,end_time from class_room_list where class_id = #{classId}
+    </select>
+
+    <select id="findTeacherNameByOpenId" resultType="String">
+        select teacher_name from teacher_account where teacher_wx_id = #{openId}
+    </select>
+
+    <select id="findClassNameById" resultType="String">
+        select class_name from class_room_list where class_id = #{classId}
+    </select>
+
+    <select id="findTeacherIdByOpenId" resultType="String">
+        select teacher_id from teacher_account where teacher_wx_id = #{openId}
+    </select>
+
+    <select id="getHistoryClassInfo" parameterType="String" resultType="map">
+        select classroom_id,stu_name,class_name,stu_id,x,y,join_time,performance_score,good,bad from seating_record where class_id = #{classId}
+    </select>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jsdx.mapper.RegisterMapper">
+    <insert id="addStudentAccount">
+        insert into stu_account values(#{wxId},#{stuName},#{stuId})
+    </insert>
+
+    <select id="searchAccount" resultType="Integer">
+        select count(stu_wx_id) from stu_account where stu_wx_id=#{wxId}
+    </select>
+
+    <insert id="addTeacherAccount">
+        insert into teacher_account values (#{wxId},#{teacherName},#{teacherId})
+    </insert>
+
+    <select id="searchTeacherAccount" resultType="Integer">
+        select count(teacher_wx_id) from teacher_account where teacher_wx_id = #{openId}
+    </select>
+</mapper>

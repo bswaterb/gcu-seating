@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jsdx.mapper.ScheduleMapper">
+    <select id="findExpiredClassId" resultType="String" parameterType="long">
+        select class_id from class_room_list where end_time &lt; #{nowTime}
+    </select>
+
+
+    <insert id="saveStudentSeatingRecord" parameterType="com.jsdx.entity.SeatingRecord">
+        insert into seating_record values (#{classId},#{classroomId},#{className},#{stuName},#{stuId},#{x},#{y},#{joinTime},#{performanceScore},#{good},#{bad})
+    </insert>
+
+    <insert id="saveStudentSeatingRecords" parameterType="java.util.List">
+        insert into seating_record (class_id,classroom_id,class_name,stu_name,stu_id,x,y,join_time,performance_score,good,bad)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.classId},
+            #{item.classroomId},
+            #{item.className},
+            #{item.stuName},
+            #{item.stuId},
+            #{item.x},
+            #{item.y},
+            #{item.joinTime},
+            #{item.performanceScore},
+            #{item.good},
+            #{item.bad}
+            )
+        </foreach>
+    </insert>
+    <select id="getClassInfo" resultType="com.jsdx.entity.Classroom">
+        select * from class_room_list where class_id = #{classId}
+    </select>
+
+    <delete id="deleteExpiredClassInfo">
+        delete from class_room_list where class_id = #{classId}
+    </delete>
+
+    <insert id="saveExpiredClassInfo" parameterType="com.jsdx.entity.Classroom">
+        insert into class_room_list_expired values(#{classId},#{classPassword},#{className},#{startTime},#{endTime},#{classroomId},#{classroomSize},#{teacherOpenId})
+    </insert>
+</mapper>

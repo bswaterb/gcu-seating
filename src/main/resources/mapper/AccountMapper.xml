@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jsdx.mapper.AccountMapper">
+    <select id="getStudentAccountInfo" resultType="Map">
+        select stu_name,stu_id from stu_account where stu_wx_id = #{wxId}
+    </select>
+    <select id="getTeacherAccountInfo" resultType="Map">
+        select teacher_name,teacher_id from teacher_account where teacher_wx_id = #{wxId}
+    </select>
+
+    <select id="findStuIdByWxId" parameterType="String" resultType="String">
+        select stu_id from stu_account where stu_wx_id = #{wxId}
+    </select>
+</mapper>

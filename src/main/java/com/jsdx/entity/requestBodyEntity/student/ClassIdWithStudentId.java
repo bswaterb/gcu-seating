@@ -1,0 +1,12 @@
+package com.jsdx.entity.requestBodyEntity.student;
+
+import lombok.Data;
+
+/**
+ * Created by chaohui on 2020/11/9
+ */
+@Data
+public class ClassIdWithStudentId {
+    private String classId;
+    private String studentId;
+}
